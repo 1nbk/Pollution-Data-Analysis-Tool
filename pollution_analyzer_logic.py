@@ -1,7 +1,7 @@
-import math
-import csv
-from typing import List, Tuple, Callable
-from datetime import datetime, timedelta
+import math  # Import math module for mathematical operations
+import csv  # Import csv module to read data from CSV files
+from typing import List, Tuple, Callable  # Type hints for better code clarity and safety
+from datetime import datetime, timedelta  # To handle date and time calculations
 
 class RombergIntegrator:
     """
