@@ -1,0 +1,28 @@
+import streamlit as st
+import pandas as pd
+import pydeck as pdk
+
+st.header("Geographical Pollution Data Visualization")
+
+uploaded_file = st.file_uploader("Upload CSV with lat, lon, pollution", type="csv")
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.map(df[['latitude', 'longitude']])
+    st.pydeck_chart(pdk.Deck(
+        map_style='mapbox://styles/mapbox/light-v9',
+        initial_view_state=pdk.ViewState(
+            latitude=df['latitude'].mean(),
+            longitude=df['longitude'].mean(),
+            zoom=10,
+            pitch=50,
+        ),
+        layers=[
+            pdk.Layer(
+                'ScatterplotLayer',
+                data=df,
+                get_position='[longitude, latitude]',
+                get_color='[200, pollution, 100, 140]',
+                get_radius=200,
+            ),
+        ],
+    ))
